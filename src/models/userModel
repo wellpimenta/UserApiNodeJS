@@ -1,0 +1,57 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
+
+const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  cpf: {
+    type: DataTypes.STRING(11),
+    unique: true,
+    allowNull: false,
+  },
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  dataNascimento: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  endereco: {
+    type: DataTypes.JSON,  // Salvando como JSON (rua, número, complemento, etc.)
+    allowNull: false,
+  },
+  status: {
+    type: DataTypes.ENUM('Ativo', 'Removido'),
+    defaultValue: 'Ativo',
+  },
+  criadoEm: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+  atualizadoEm: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+  removidoEm: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  criadoPor: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  atualizadoPor: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  removidoPor: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+});
+
+module.exports = User;
